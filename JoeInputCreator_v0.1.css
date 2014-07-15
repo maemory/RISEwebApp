@@ -1,3 +1,33 @@
+/* for scroll spy */
 body {
   position: relative;
+}
+
+/* toTop button in sidenav */
+.toTop {
+  text-align: center;
+}
+.toTop>a {
+  color: #AAA;
+}
+
+/* Sidenav pills behavior */
+#sidenav > li > a {
+  border-left-style: solid;
+  border-radius: 0px;
+  border-color: #FFF;
+  color: #888;
+}
+
+#sidenav > li.active > a,
+#sidenav > li.active > a:hover,
+#sidenav > li.active > a:focus {
+  background-color: white;
+  border-color: #0E48C7;
+  color: #0E48C7;
+}
+
+#sidenav > li > a:hover {
+  border-color: #888;
+  background-color: #EEE;
 }

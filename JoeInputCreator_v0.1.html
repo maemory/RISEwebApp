@@ -7,15 +7,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="favicon2.ico">
+  <link rel="icon" href="favicon2.ico"/>
 
   <title>Joe Input Text</title>
 
   <!-- Bootstrap core CSS -->
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="JoeInputCreator_v0.1.css">
-  <link rel="stylesheet" href="assets/switchery/switchery.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="JoeInputCreator_v0.1.css"/>
+  <link rel="stylesheet" href="assets/switchery/switchery.min.css"/>
+  <link rel='stylesheet' href='assets/nprogress/nprogress.css'/>
   <!-- Custom styles for this template -->
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -279,13 +280,24 @@
       <div class="col-sm-3">
         <div id="sidebar" data-spy="affix">
           <h3>Navigation</h3>
+          <!-- side navigation with scrollspy -->
           <ul id="sidenav" class="nav nav-pills nav-stacked">
             <li><a href="#CompDomain">Computational Domain</a></li>
             <li><a href="#InitCond">Initial Conditions</a></li>
             <li><a href="#Solver">Solver Settings</a></li>
           </ul>
           <br>
+          <!-- back to top button -->
           <p class="toTop"><a href="#top">back to top <i class="fa fa-level-up"></i></a></p>
+          <br>
+          <!-- page completion progress bar -->
+          <div class="progress hidden">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              0%
+            </div>
+          </div>
+          <br>
+          <!-- save/preview text object -->
           <div class="btn-group">
             <a type="button" class="btn btn-default" onclick="saveTextAsFile()">Save to File <i class="fa fa-cloud-download"></i></a>
             <a class="btn btn-default disabled">Preview</a>
@@ -305,5 +317,6 @@
   <!-- for fun libraries -->
   <script src="assets/switchery/switchery.min.js"></script>
   <script src='assets/scrollReveal/scrollReveal.min.js'></script>
+  <script src='assets/nprogress/nprogress.js'></script>
 </body>
 </html>

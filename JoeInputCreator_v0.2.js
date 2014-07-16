@@ -1,4 +1,5 @@
 $(document).ready(function() {
+  NProgress.start();
   // hide objects on pageload
   $("[data-starthidden='true']").hide()
 
@@ -19,6 +20,7 @@ $(document).ready(function() {
         init: true
       };
   window.scrollReveal = new scrollReveal(config);
+  NProgress.done();
 });
 
 
@@ -94,30 +96,30 @@ function hideshowdrop(opselected, op1, op2) {
               }
 
               var textToWrite = "##########################\r\n\
-              ## Computational Domain ##\r\n\
-              ##########################\r\n\
-              \r\n\
-              # Mesh/restart file path \r\n\
-              RESTART = " + values.RESTART + "\r\n\
-              \r\n\
-              ##########################\r\n\
-              ### Initial Conditions ###\r\n\
-              ##########################\r\n\
-              \r\n\
-              # Gas Properties \r\n\
-              P_REF = " + values.P_REF + "\r\n\
-              T_REF = " + values.T_REF + "\r\n\
-              RHO_REF = " + values.RHO_REF + "\r\n\
-              \r\n\
-              U_INITIAL = " + values.U_INITX + " " + values.U_INITY + " " + values.U_INITZ +"\r\n\
-              \r\n\
-              #Viscosity\r\n\
-              MU_REF = " + values.MU_REF + "\r\n\
-              MU_MODE = "
+## Computational Domain ##\r\n\
+##########################\r\n\
+\r\n\
+# Mesh/restart file path \r\n\
+RESTART = " + values.RESTART + "\r\n\
+\r\n\
+##########################\r\n\
+### Initial Conditions ###\r\n\
+##########################\r\n\
+\r\n\
+# Gas Properties\r\n\
+P_REF = " + values.P_REF + "\r\n\
+T_REF = " + values.T_REF + "\r\n\
+RHO_REF = " + values.RHO_REF + "\r\n\
+\r\n\
+U_INITIAL = " + values.U_INITX + " " + values.U_INITY + " " + values.U_INITZ +"\r\n\
+\r\n\
+#Viscosity\r\n\
+MU_REF = " + values.MU_REF + "\r\n\
+MU_MODE = "
               switch($("#method option:selected").val()) {
                 case "1":
                   textToWrite += "POWERLAW \r\n\
-                  MU_POWER_LAW = " + values.MU_POWER_LAW + "\r\n"
+MU_POWER_LAW = " + values.MU_POWER_LAW + "\r\n"
                   break;
 
                   case "2":
@@ -126,16 +128,16 @@ function hideshowdrop(opselected, op1, op2) {
                   }
 
                   textToWrite += "\r\n\
-                  \r\n\
-                  ##########################\r\n\
-                  #### Solver Settings #####\r\n\
-                  ##########################\r\n\
-                  \r\n\
-                  # CFL \r\n\
-                  CFL = " + values.CFL + "\r\n"
+\r\n\
+##########################\r\n\
+#### Solver Settings #####\r\n\
+##########################\r\n\
+\r\n\
+# CFL \r\n\
+CFL = " + values.CFL + "\r\n"
                   if($('#dynamic').is(':checked')) {
                     textToWrite += "CFL_RAMP AFTER_ITER=" + values.CFL_RAMP_AFTER_ITER + " \
-                    INTERVAL_ITER=" + values.INTERVAL_ITER  + " FACTOR_CFL=" + values.FACTOR_CFL + " MAX_CFL=" + values.MAX_CFL + "\r\n"
+INTERVAL_ITER=" + values.INTERVAL_ITER  + " FACTOR_CFL=" + values.FACTOR_CFL + " MAX_CFL=" + values.MAX_CFL + "\r\n"
                   }
                   textToWrite += "\r\n" + "NSTEPS = "+ values.NSTEPS + "\r\n"
 
@@ -185,8 +187,8 @@ function hideshowdrop(opselected, op1, op2) {
                                 }
 
                                 textToWrite += "LINEAR_SOLVER_NS_THRESHOLDS \
-                                MAX_ITER=" + values.MAX_ITER + " ABS_RESID=" + values.ABS_RESID + " REL_RESID=" + values.REL_RESID +"\r\n\
-                                UNDER_RELAXATION="+ values.UNDER_RELAXATION +"\r\n"
+MAX_ITER=" + values.MAX_ITER + " ABS_RESID=" + values.ABS_RESID + " REL_RESID=" + values.REL_RESID +"\r\n\
+UNDER_RELAXATION="+ values.UNDER_RELAXATION +"\r\n"
 
                                 switch($("#scalar option:selected").val()) {
                                   case "1":

@@ -1,47 +1,118 @@
 <!DOCTYPE html>
-	<html>
-		<head>
-			<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-			<style>
-			.axis path,
-				.axis line {
-				fill: none;
-				stroke: black;
-				shape-rendering: crispEdges;
-				}
+<html>
+  <head>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    
+    <!-- Ccore CSS -->
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="Sinusoid_v0.1.css">
 
-			.axis text {
-				font-family: sans-serif;
-				font-size: 11px;
-			}
-			</style>
-		</head>
-		<body>
-			<input type="file" id="files" />
-			<input id="evalnum"></input>
-			<button id="graph">Graph</button>
-			<select id="function" style="color: #000000;"  onchange="">
-				<option value="0" disabled>Equation</option>
-				<option value="1">c1*sin(c2*x)</option>
-				<option value="2">c1*cos(c2*x)</option>
-				</select>
-			<button id="integrate">Integrate</button>
-			<input id="integral" value = "" disabled />
-			<button id="save">Save</button>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9">
+          <h1>D3.js Visualization Demonstrator</h1>
+          <p style="text-align: justify;">This page utilizes the <a href="http://d3js.org/">D3.js</a> JavaScript library to post-process user created data sets. These data sets are stored locally on the user's computer, uploaded to the browser, manipulated, and specific quantities of interest are exported and saved to the user's machine.</p>
+          <hr>
+        </div><!-- .col-8 -->
+      </div><!-- .row -->
+        
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="col-sm-4">
+            <h3>Graphing Properties</h3>
+            <form class="form-horizontal" role="form">
+              <div class="form-group">
+                <input type="file" class="filestyle" data-buttonBefore="true" id="files" data-icon="false" data-buttonText="Choose Coefficient File">
+              </div>
 
-			<select id="method" style="color: #000000;"  onchange="">
-				<option value="0" disabled>Method</option>
-				<option value="1">Left Corner Rect</option>
-				<option value="2">Trapezoid</option>
-				</select>
-			<script>
+              <div class="form-group">
+                <label for="C1" class="col-sm-4 control-label">c1</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" disabled id="C1">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="C2" class="col-sm-4 control-label">c2</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" disabled id="C2">
+                </div>
+              </div>
+            
+              <div class="form-group">
+                <label for="C3" class="col-sm-4 control-label">c3</label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" disabled id="C3">
+                </div>
+              </div>
 
-			</script>
-	<!-- Bootstrap core JavaScript
-	================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<!--<script src="bootstrap.min.js"></script>-->
-	<script src="Sinusoid_v0.1.js"></script>
-		</body>
-	</html>
+              <div class="form-group">
+                <label for="evalnum" class="col-sm-4 control-label">Number of Points</label>
+                <div class="col-sm-8">
+                  <input class="form-control" id="evalnum" placeholder="">
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="function" class="col-sm-4 control-label">Function to Plot</label>
+                <div class="col-sm-8">
+                  <select id="function" class="form-control">
+                    <option value="0" disabled>Equation</option>
+                    <option value="1">c1*sin(c2*x)</option>
+                    <option value="2">c1*cos(c2*x)</option>
+                    <option value="3">c1*(sin(c2*x) + cos(c2*x)^c3)</option>
+                  </select>
+                </div>
+              </div>
+            </form>
+            <button type="button" class="btn btn-primary btn-block" id="graph">Graph</button>
+            
+            <hr>
+            <h3>Integration Properties</h3>
+            
+            <form class="form-horizontal" role="form">
+              
+              <div class="form-group">
+                <label for="method" class="col-sm-4 control-label">Integration Technique</label>
+                <div class="col-sm-8">
+                  <select id="method" class="form-control">
+                    <option value="0" disabled>Method</option>
+                    <option value="1">Left Corner Rect</option>
+                    <option value="2">Trapezoid</option>
+                  </select>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <button type="button" class="btn btn-primary col-sm-4" id="integrate">Compute Integral</button>
+                <div class="col-sm-8">
+                  <input id="integral" class="form-control" value="" disabled>
+                </div><!-- .col-8 -->
+              </div>
+
+              <div class="form-group">
+                <input type="file" class="filestyle" data-buttonBefore="true" id="save" data-icon="false" data-buttonText="Save Integral to File">
+              </div>
+            </form>
+          </div><!-- .col5 -->
+          
+          <div class="col-sm-7" id="graphWindow">
+          
+          </div><!-- col-7 -->
+
+        </div><!-- .col-12 -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/bootstrap/js/bootstrap-filestyle.min.js"></script>
+    <script src="Sinusoid_v0.1.js"></script>
+  </body>
+</html>

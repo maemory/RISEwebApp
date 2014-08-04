@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon2.ico">
+
+  <title>Joe Input Text</title>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="JoeInputCreator_v0.1.css">
+  <link rel="stylesheet" href="assets/switchery/switchery.css" />
+  <!-- Custom styles for this template -->
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body data-spy="scroll" data-target="#sidebar">
+
+
+  <div id="preview" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Preview</h4>
+        </div>
+        <div id="preview_body" class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="row" >
+      <div class="col-sm-9">
+
+        <div class="row" id="top">
+          <h1>Joe Input File Generator</h1>
+          <p>Web based utility to help users quickly and simply generate 'Joe.in' files.</p>
+        </div>
+
+        <!-- Computational Domain -->
+        <div class="row"  id="CompDomain">
+          <h3>Computational Domain</h3>
+          <hr>
+          <div class="row">
+            <h4 class="col-sm-12">Mesh</h4>
+
+            <div class="col-sm-6">
+              <div class="col-sm-6">
+                <p>Mesh or simulation file</p>
+              </div>
+              <div class="col-sm-6 input-group input-group-sm">
+                <input type="text" class="form-control" id="restart" placeholder="">
+                <span class="input-group-addon">.msh</span>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+            </div>
+          </div><!--.row-->
+        </div><!--.row-->
+
+        <!-- Initial Conditions -->
+
+        <div class="row"  id="InitCond">
+          <h3>Initial Conditions</h3>
+          <hr>
+          <div class="row">
+            <h4 class="col-sm-12">Gas Properties</h4>
+
+            <div class="col-sm-6">
+              <p>Reference Pressure <input  id="pressure" placeholder=""></input></p>
+              <p>Reference Temperature <input  id="temperature" placeholder=""></input></p>
+              <p>Reference Density <input  id="density" placeholder=""></input></p>
+            </div>
+
+            <div class="col-sm-6">
+            </div>
+          </div><!--.row-->
+
+          <br>
+
+          <div class="row">
+            <h4 class="col-sm-12">Viscosity</h4>
+            <div class="col-sm-6">
+              <p>Computation technique
+                <select id="method" onchange="hideshowdrop(this.selectedIndex,$('#power_law'))">
+                  <option value="0" disabled selected="1">Method</option>
+                  <option value="1">Power Law</option>
+                  <option value="2">Sutherland</option>
+                </select>
+              </p>
+              <p>Reference viscosity magnitude <input  id="viscosity" placeholder=""></input></p>
+            </div>
+
+            <div class="col-sm-6">
+              <p id="power_law" data-starthidden="true">Power Law coefficient <input id="plCoefficient" placeholder=""></input></p>
+            </div>
+          </div><!--.row-->
+
+          <br>
+
+          <div class="row">
+            <h4 class="col-sm-12">Initial Velocity (m/s)</h4>
+
+            <div class="col-sm-6">
+              <p>X-velocity <input  id="x" placeholder=""></input></p>
+              <p>Y-velocity <input  id="y" placeholder=""></input></p>
+              <p>Z-velocity <input  id="z" placeholder=""></input></p>
+            </div>
+
+            <div class="col-sm-6">
+            </div>
+          </div><!--.row-->
+        </div><!--#InitCond-->
+
+        <!-- Solver Settings -->
+
+        <div class="row" id="Solver">
+          <h3>Solver Settings</h3>
+          <hr>
+
+          <div class="row">
+            <h4 class="col-sm-12">CFL Information</h4>
+            <div class="col-sm-6">
+              <p>CFL <input  id="CFL" placeholder=""></input></p>
+              <p><input id="dynamic" type="checkbox" onchange="$('#ramping').fadeToggle('fast')"  class="js-switch"></input> Dynamic CFL ramping</p>
+            </div>
+
+            <div class="col-sm-6">
+
+              <div id = "ramping" data-starthidden="true" class = "">
+                <p>start after <input  id="cflStart" </input> iterations</p>
+                <p>increase every <input  id="cflIncrease" placeholder=""></input> iterations</p>
+                <p>by a factor of <input  id="cflFactor" placeholder=""></input></p>
+                <p>stop ramping after CFL > <input  id="cflMax" placeholder=""></input></p>
+              </div>
+            </div>
+          </div><!--.row-->
+
+          <br>
+
+          <div class="row">
+            <h4 class="col-sm-12">time stepping information</h4>
+            <div class="col-sm-6">
+              <p>total # of iterations <input  id="iterations" placeholder=""></input></p>
+              <p>time step computation method
+                <select id="dt" style="color: #000000;"  onchange="hideshowdrop(this.selectedIndex,$('#summation'))">
+                  <option value="0" disabled selected="1" class = "">dt determination</option>
+                  <option value="1">sum based</option>
+                </select>
+              </p>
+
+              <p>time integration method
+                <select id="time" style="color: #000000;"  onchange="hideshowdrop(this.selectedIndex, $('#Euler'), $('#Runge'))">
+                  <option value="0" disabled selected="1" class = "">time integration method</option>
+                  <option value="1">backward euler</option>
+                  <option value="2">Runge-Kutta 3</option>
+                </select>
+              </p>
+            </div>
+
+            <div class="col-sm-6">
+              <div id="summation" data-starthidden="true" class = "">
+                <p>summation of max(timestep) from eigenvalues of neighboring cells</p>
+              </div>
+              <p class = "" id = "Euler" data-starthidden="true"> implicit Backward Euler method</p>
+              <p class = "" id = "Runge" data-starthidden="true"> explicit Runge-Kutta 3 method</p>
+            </div>
+          </div><!--.row-->
+
+          <br>
+
+          <div class="row">
+            <h4 class="col-sm-12">Spatial Integration</h4>
+            <div class="col-sm-6">
+              <p>Integration Method
+                <select id="integmethod" style="color: #000000;"  onchange="hideshowdrop(this.selectedIndex, $('#HLLC'))">
+                  <option value="0" disabled selected="1" class = "">Integration method</option>
+                  <option value="1">HLLC</option>
+                </select>
+              </p>
+              <p><input id="order" type="checkbox" onchange = "$('#2nd-order').fadeToggle('fast')"></input> Use second order accuracy</p>
+            </div>
+
+            <div class="col-sm-6">
+              <p id = "HLLC" data-starthidden="true">using HLLC numerical method</p>
+              <p id = "2nd-order" data-starthidden="true"></p>
+            </div>
+          </div><!--.row-->
+
+          <br>
+
+          <div class="row">
+            <h4 class="col-sm-12">Linear Solvers</h4>
+            <div class="col-sm-6">
+              <p>RANS equation solver
+                <select id="nav-stoke" style="color: #000000;"  onchange="hideshowdrop(this.selectedIndex, $('#navPETSC'), $('#navBCGSTAB'))">
+                  <option value="0" disabled selected="1" class = "">Navier-Stokes Solver</option>
+                  <option value="1">PETSC GMRES</option>
+                  <option value="2">BCGSTAB</option>
+                </select>
+              </p>
+            </div>
+
+            <div class="col-sm-6">
+              <p id="navPETSC" data-starthidden="true"> using the PETSC library</p>
+              <p id="navBCGSTAB" data-starthidden="true"> using the BCGSTAB library</p>
+            </div>
+          </div><!--.row-->
+
+          <div class="row">
+            <div class="col-sm-6">
+
+              <p><input type="checkbox" onchange="$('#RANSSolverParams').fadeToggle('fast')"  class="js-switch"></input> Modify default parameters</p>
+            </div>
+
+            <div id="RANSSolverParams" class="col-sm-6" data-starthidden="true">
+              <p>inner loop iterations <input  id="maxIter" value="30"></input></p>
+              <p>absolute residual threshold <input  id="absResid" value="1e-8"></input></p>
+              <p>relative residual threshold <input  id="relResid" value="1e-2"></input></p>
+              <p>under relaxation <input  id="navRelax" value="1.0"></input></p>
+            </div>
+          </div><!--.row-->
+
+          <br>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <p>Scalar transport equation solver
+                <select id="scalar" style="color: #000000;"  onchange="hideshowdrop(this.selectedIndex, $('#scalPETSC'), $('#scalBCGSTAB'))">
+                  <option value="0" disabled selected="1" class = "">Scalar Solver</option>
+                  <option value="1">PETSC GMRES</option>
+                  <option value="2">BCGSTAB</option>
+                </select>
+              </p>
+            </div>
+
+            <div class="col-sm-6">
+              <p id="scalPETSC" data-starthidden="true"> using the PETSC library</p>
+              <p id="scalBCGSTAB" data-starthidden="true"> using the BCGSTAB library</p>
+            </div>
+          </div><!--.row-->
+
+          <div class="row">
+            <div class="col-sm-6">
+              <p><input type="checkbox" onchange="$('#scalarSolverParams').fadeToggle('fast')"  class="js-switch"></input> Modify default parameters</p>
+            </div>
+
+            <div id="scalarSolverParams" class="col-sm-6" data-starthidden="true">
+              <p>under relaxation: <input  id="scalRelax" value="1.0"></input></p>
+            </div>
+          </div><!--.row-->
+
+          <br>
+
+          <div class="row">
+            <h4 class="col-sm-12">Gradient Computation</h4>
+            <div class="col-sm-6">
+              <p>Gradient reconstruction method
+                <select id="reconmeth" style="color: #000000;"  onchange="hideshowdrop(this.selectedIndex, $('#greengauss'), $('#leastsquares'))">
+                  <option value="0" disabled selected="1" class = "">method</option>
+                  <option value="1">Greengauss</option>
+                  <option value="2">Least Squares</option>
+                </select>
+              </p>
+              <p><input id="scalstand" type="checkbox"></input> use "standard" method for scalar gradients</p>
+              <p><input id="visclim" type="checkbox"></input> use viscosity limiter</p>
+            </div>
+
+            <div class="col-sm-6">
+              <div id="greengauss" data-starthidden="true">
+                <p>Greengauss options:</p>
+                <p><input id="limitergg" type="checkbox"></input> limiter on</label></p>
+                <p>epsilon value <input id="evgg" value="0.05"></input></p>
+              </div>
+
+              <div id="leastsquares" data-starthidden="true">
+                <p>Least Squares options:</p>
+                <p><input id="limiterls" type="checkbox"></input> limiter on</p>
+                <p>epsilon value <input id="evls" value="0.05"></input></p>
+              </div>
+            </div>
+          </div><!--.row-->
+        </div><!--.row-->
+      </div><!--.col-9 (main)-->
+
+      <div class="col-sm-3">
+        <div id="sidebar" data-spy="affix">
+          <h3>Navigation</h3>
+          <ul id="sidenav" class="nav nav-pills nav-stacked">
+            <li><a href="#CompDomain">Computational Domain</a></li>
+            <li><a href="#InitCond">Initial Conditions</a></li>
+            <li><a href="#Solver">Solver Settings</a></li>
+          </ul>
+          <br>
+          <p class="toTop"><a href="#top">back to top <i class="fa fa-level-up"></i></a></p>
+          <div class="btn-group">
+            <a type="button" id="saveButton" class="btn btn-default">Save to File <i class="fa fa-cloud-download"></i></a>
+            <a class="btn btn-default" id="previewshow">Preview</a>
+          </div>
+        </div><!--#sidbar-->
+      </div><!--.col-3 (sidebar)-->
+
+    </div><!--.row-->
+  </div><!--.container-->
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="JoeInputCreator_v0.3.js"></script>
+  <script src="assets/switchery/switchery.js"></script>
+</body>
+</html>

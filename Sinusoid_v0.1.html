@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+			<style>
+			.axis path,
+				.axis line {
+				fill: none;
+				stroke: black;
+				shape-rendering: crispEdges;
+				}
+
+			.axis text {
+				font-family: sans-serif;
+				font-size: 11px;
+			}
+			</style>
+		</head>
+		<body>
+			<input type="file" id="files" />
+			<input id="evalnum"></input>
+			<button id="graph">Graph</button>
+			<select id="function" style="color: #000000;"  onchange="">
+				<option value="0" disabled>Equation</option>
+				<option value="1">c1*sin(c2*x)</option>
+				<option value="2">c1*cos(c2*x)</option>
+				</select>
+			<button id="integrate">Integrate</button>
+			<input id="integral" value = "" disabled />
+			<button id="save">Save</button>
+
+			<select id="method" style="color: #000000;"  onchange="">
+				<option value="0" disabled>Method</option>
+				<option value="1">Left Corner Rect</option>
+				<option value="2">Trapezoid</option>
+				</select>
+			<script>
+
+			</script>
+	<!-- Bootstrap core JavaScript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!--<script src="bootstrap.min.js"></script>-->
+	<script src="Sinusoid_v0.1.js"></script>
+		</body>
+	</html>

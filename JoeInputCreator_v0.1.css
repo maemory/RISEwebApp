@@ -13,10 +13,11 @@ body {
 
 /* Sidenav pills behavior */
 #sidenav > li > a {
-  border-left-style: solid;
+  border-right-style: solid;
   border-radius: 0px;
   border-color: #FFF;
   color: #888;
+  text-align: right;
 }
 
 #sidenav > li.active > a,

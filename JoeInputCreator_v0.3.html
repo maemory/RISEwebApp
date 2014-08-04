@@ -209,18 +209,60 @@
           <div class="row">
             <h4 class="col-sm-12">CFL Information</h4>
             <div class="col-sm-6">
-              <p>CFL <input  id="CFL" placeholder=""></input></p>
-              <p><input id="dynamic" type="checkbox" onchange="$('#ramping').fadeToggle('fast')"  class="js-switch"></input> Dynamic CFL ramping</p>
+              <form class="form-horizontal">
+
+                <div class="form-group">
+                  <label for="CFL" class="col-sm-6 control-label">CFL number</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="CFL" placeholder="">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="dynamic" class="col-sm-6 control-label">use dynamic CFL ramping</label>
+                  <div class="col-sm-6">
+                    <input type="checkbox" class="js-switch" id="dynamic" onchange="$('#ramping').fadeToggle('fast')">
+                  </div>
+                </div>
+
+              </form>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-sm-6" id="ramping" data-starthidden="true">
 
-              <div id = "ramping" data-starthidden="true" class = "">
-                <p>start after <input  id="cflStart" </input> iterations</p>
-                <p>increase every <input  id="cflIncrease" placeholder=""></input> iterations</p>
-                <p>by a factor of <input  id="cflFactor" placeholder=""></input></p>
-                <p>stop ramping after CFL > <input  id="cflMax" placeholder=""></input></p>
-              </div>
+              <form class="form-horizontal">
+
+                <div class="form-group">
+                  <label for="cflStart" class="col-sm-6 control-label">start after</label>
+                  <div class="col-sm-6 input-group">
+                    <input type="text" class="form-control" id="cflStart" placeholder="">
+                    <span class="input-group-addon">iters.</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="cflIncrease" class="col-sm-6 control-label">increase every</label>
+                  <div class="col-sm-6 input-group">
+                    <input type="text" class="form-control" id="cflIncrease" placeholder="">
+                    <span class="input-group-addon">iters.</span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="cflFactor" class="col-sm-6 control-label">by a factor of</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="cflFactor" placeholder="">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="cflMax" class="col-sm-6 control-label">stop when CFL is over</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="cflMax" placeholder="">
+                  </div>
+                </div>
+
+              </form>
             </div>
           </div><!--.row-->
 
@@ -229,30 +271,39 @@
           <div class="row">
             <h4 class="col-sm-12">time stepping information</h4>
             <div class="col-sm-6">
-              <p>total # of iterations <input  id="iterations" placeholder=""></input></p>
-              <p>time step computation method
-                <select id="dt" style="color: #000000;"  onchange="hideshowdrop(this.selectedIndex,$('#summation'))">
-                  <option value="0" disabled selected="1" class = "">dt determination</option>
-                  <option value="1">sum based</option>
-                </select>
-              </p>
+              <form class="form-horizontal">
 
-              <p>time integration method
-                <select id="time" style="color: #000000;"  onchange="hideshowdrop(this.selectedIndex, $('#Euler'), $('#Runge'))">
-                  <option value="0" disabled selected="1" class = "">time integration method</option>
-                  <option value="1">backward euler</option>
-                  <option value="2">Runge-Kutta 3</option>
-                </select>
-              </p>
+                <div class="form-group">
+                  <label for="iterations" class="col-sm-6 control-label">Total Iterations</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="iterations" placeholder="">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="dt" class="col-sm-6 control-label">Timestep computation method</label>
+                  <div class="col-sm-6">
+                    <select class="form-control" id="dt"  onchange="hideshowdrop(this.selectedIndex,$('#summation'))">
+                      <option value="0" disabled selected="1" class="">method</option>
+                      <option value="1">Sum Based</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="time" class="col-sm-6 control-label">Time integration method</label>
+                  <div class="col-sm-6">
+                    <select class="form-control" id="time"  onchange="hideshowdrop(this.selectedIndex, $('#Euler'), $('#Runge'))">
+                      <option value="0" disabled selected="1" class = "">time integration method</option>
+                      <option value="1">Backward Euler</option>
+                      <option value="2">Runge-Kutta 3</option>
+                    </select>
+                  </div>
+                </div>
+
+              </form>
             </div>
 
-            <div class="col-sm-6">
-              <div id="summation" data-starthidden="true" class = "">
-                <p>summation of max(timestep) from eigenvalues of neighboring cells</p>
-              </div>
-              <p class = "" id = "Euler" data-starthidden="true"> implicit Backward Euler method</p>
-              <p class = "" id = "Runge" data-starthidden="true"> explicit Runge-Kutta 3 method</p>
-            </div>
           </div><!--.row-->
 
           <br>
@@ -260,52 +311,94 @@
           <div class="row">
             <h4 class="col-sm-12">Spatial Integration</h4>
             <div class="col-sm-6">
-              <p>Integration Method
-                <select id="integmethod" style="color: #000000;"  onchange="hideshowdrop(this.selectedIndex, $('#HLLC'))">
-                  <option value="0" disabled selected="1" class = "">Integration method</option>
-                  <option value="1">HLLC</option>
-                </select>
-              </p>
-              <p><input id="order" type="checkbox" onchange = "$('#2nd-order').fadeToggle('fast')"></input> Use second order accuracy</p>
-            </div>
+              <form class="form-horizontal">
 
-            <div class="col-sm-6">
-              <p id = "HLLC" data-starthidden="true">using HLLC numerical method</p>
-              <p id = "2nd-order" data-starthidden="true"></p>
+                <div class="form-group">
+                  <label for="integmethod" class="col-sm-6 control-label">Integration Method</label>
+                  <div class="col-sm-6">
+                    <select id="integmethod" class="form-control" onchange="hideshowdrop(this.selectedIndex, $('#HLLC'))">
+                      <option value="0" disabled selected="1" class = "">Integration method</option>
+                      <option value="1">HLLC</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="order" class="col-sm-6 control-label">Second Order Accurate</label>
+                  <div class="col-sm-6">
+                    <input id="order" type="checkbox" class="js-switch">
+                  </div>
+                </div>
+
+              </form>
             </div>
           </div><!--.row-->
 
           <br>
 
           <div class="row">
-            <h4 class="col-sm-12">Linear Solvers</h4>
+            <h4 class="col-sm-12">Linear System Solvers</h4>
             <div class="col-sm-6">
-              <p>RANS equation solver
-                <select id="nav-stoke" style="color: #000000;"  onchange="hideshowdrop(this.selectedIndex, $('#navPETSC'), $('#navBCGSTAB'))">
-                  <option value="0" disabled selected="1" class = "">Navier-Stokes Solver</option>
-                  <option value="1">PETSC GMRES</option>
-                  <option value="2">BCGSTAB</option>
-                </select>
-              </p>
-            </div>
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label for="nav-stoke" class="col-sm-6 control-label">RANS Equations Solver</label>
+                  <div class="col-sm-6">
+                    <select id="nav-stoke" class="form-control" onchange="hideshowdrop(this.selectedIndex, $('#navPETSC'), $('#navBCGSTAB'))">
+                      <option value="0" disabled selected="1" class = "">Solver</option>
+                      <option value="1">PETSC GMRES</option>
+                      <option value="2">BCGSTAB</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
 
-            <div class="col-sm-6">
-              <p id="navPETSC" data-starthidden="true"> using the PETSC library</p>
-              <p id="navBCGSTAB" data-starthidden="true"> using the BCGSTAB library</p>
             </div>
           </div><!--.row-->
 
           <div class="row">
             <div class="col-sm-6">
-
-              <p><input type="checkbox" onchange="$('#RANSSolverParams').fadeToggle('fast')"  class="js-switch"></input> Modify default parameters</p>
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label for="RANSmod" class="col-sm-6 control-label text-info">Modify Default Parameters</label>
+                  <div class="col-sm-6">
+                    <input id="RANSmod" type="checkbox" class="js-switch" onchange="$('#RANSSolverParams').fadeToggle('fast')">
+                  </div>
+                </div>
+              </form>
             </div>
 
             <div id="RANSSolverParams" class="col-sm-6" data-starthidden="true">
-              <p>inner loop iterations <input  id="maxIter" value="30"></input></p>
-              <p>absolute residual threshold <input  id="absResid" value="1e-8"></input></p>
-              <p>relative residual threshold <input  id="relResid" value="1e-2"></input></p>
-              <p>under relaxation <input  id="navRelax" value="1.0"></input></p>
+              <form class="form-horizontal">
+
+                <div class="form-group">
+                  <label for="maxIter" class="col-sm-6 control-label">inner-loop iterations</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="maxIter" value="30">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="absResid" class="col-sm-6 control-label">absolute residual threshold</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="absResid" value="1.0e-8">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="relResid" class="col-sm-6 control-label">relative residual threshold</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="relResid" value="1.0e-2">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="navRelax" class="col-sm-6 control-label">under relaxation</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="navRelax" value="1.0">
+                  </div>
+                </div>
+              </form>
+
             </div>
           </div><!--.row-->
 
@@ -313,28 +406,42 @@
 
           <div class="row">
             <div class="col-sm-6">
-              <p>Scalar transport equation solver
-                <select id="scalar" style="color: #000000;"  onchange="hideshowdrop(this.selectedIndex, $('#scalPETSC'), $('#scalBCGSTAB'))">
-                  <option value="0" disabled selected="1" class = "">Scalar Solver</option>
-                  <option value="1">PETSC GMRES</option>
-                  <option value="2">BCGSTAB</option>
-                </select>
-              </p>
-            </div>
-
-            <div class="col-sm-6">
-              <p id="scalPETSC" data-starthidden="true"> using the PETSC library</p>
-              <p id="scalBCGSTAB" data-starthidden="true"> using the BCGSTAB library</p>
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label for="scalar" class="col-sm-6 control-label">Scalar Equations Solver</label>
+                  <div class="col-sm-6">
+                    <select id="scalar" class="form-control"  onchange="hideshowdrop(this.selectedIndex, $('#scalPETSC'), $('#scalBCGSTAB'))">
+                      <option value="0" disabled selected="1" class = "">Solver</option>
+                      <option value="1">PETSC GMRES</option>
+                      <option value="2">BCGSTAB</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
             </div>
           </div><!--.row-->
 
           <div class="row">
             <div class="col-sm-6">
-              <p><input type="checkbox" onchange="$('#scalarSolverParams').fadeToggle('fast')"  class="js-switch"></input> Modify default parameters</p>
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label for="Scalmod" class="col-sm-6 control-label text-info">Modify Default Parameters</label>
+                  <div class="col-sm-6">
+                    <input id="Scalmod" type="checkbox" class="js-switch" onchange="$('#scalarSolverParams').fadeToggle('fast')">
+                  </div>
+                </div>
+              </form>
             </div>
 
             <div id="scalarSolverParams" class="col-sm-6" data-starthidden="true">
-              <p>under relaxation: <input  id="scalRelax" value="1.0"></input></p>
+              <form class="form-horizontal">
+                <div class="form-group">
+                  <label for="scalRelax" class="col-sm-6 control-label">under relaxation</label>
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control" id="scalRelax" value="1.0">
+                  </div>
+                </div>
+              </form>
             </div>
           </div><!--.row-->
 
@@ -343,28 +450,75 @@
           <div class="row">
             <h4 class="col-sm-12">Gradient Computation</h4>
             <div class="col-sm-6">
-              <p>Gradient reconstruction method
-                <select id="reconmeth" style="color: #000000;"  onchange="hideshowdrop(this.selectedIndex, $('#greengauss'), $('#leastsquares'))">
-                  <option value="0" disabled selected="1" class = "">method</option>
-                  <option value="1">Greengauss</option>
-                  <option value="2">Least Squares</option>
-                </select>
-              </p>
-              <p><input id="scalstand" type="checkbox"></input> use "standard" method for scalar gradients</p>
-              <p><input id="visclim" type="checkbox"></input> use viscosity limiter</p>
+              <form class="form-horizontal">
+
+                <div class="form-group">
+                  <label for="reconmeth" class="col-sm-6 control-label">Gradient Reconstruction Method</label>
+                  <div class="col-sm-6">
+                    <select id="reconmeth" class="form-control"  onchange="hideshowdrop(this.selectedIndex, $('#greengauss'), $('#leastsquares'))">
+                      <option value="0" disabled selected="1" class = "">method</option>
+                      <option value="1">Greengauss</option>
+                      <option value="2">Least Squares</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="scalstand" class="col-sm-6 control-label">use "standard" for scalar gradients</label>
+                  <div class="col-sm-6">
+                    <input id="scalstand" type="checkbox" class="js-switch">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="visclim" class="col-sm-6 control-label">use a viscosity limiter</label>
+                  <div class="col-sm-6">
+                    <input id="visclim" type="checkbox" class="js-switch">
+                  </div>
+                </div>
+
+              </form>
             </div>
 
             <div class="col-sm-6">
               <div id="greengauss" data-starthidden="true">
-                <p>Greengauss options:</p>
-                <p><input id="limitergg" type="checkbox"></input> limiter on</label></p>
-                <p>epsilon value <input id="evgg" value="0.05"></input></p>
+                <form class="form-horizontal">
+
+                  <div class="form-group">
+                    <label for="limitergg" class="col-sm-6 control-label">Limiter On</label>
+                    <div class="col-sm-6">
+                      <input id="limitergg" type="checkbox" class="js-switch">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="evgg" class="col-sm-6 control-label">Epsilon Value</label>
+                    <div class="col-sm-6">
+                      <input id="evgg" type="text" class="form-control" value="0.05">
+                    </div>
+                  </div>
+
+                </form>
               </div>
 
               <div id="leastsquares" data-starthidden="true">
-                <p>Least Squares options:</p>
-                <p><input id="limiterls" type="checkbox"></input> limiter on</p>
-                <p>epsilon value <input id="evls" value="0.05"></input></p>
+                <form class="form-horizontal">
+
+                  <div class="form-group">
+                    <label for="limiterls" class="col-sm-6 control-label">Limiter On</label>
+                    <div class="col-sm-6">
+                      <input id="limiterls" type="checkbox" class="js-switch">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="evls" class="col-sm-6 control-label">Epsilon Value</label>
+                    <div class="col-sm-6">
+                      <input id="evls" type="text" class="form-control" value="0.05">
+                    </div>
+                  </div>
+
+                </form>
               </div>
             </div>
           </div><!--.row-->
